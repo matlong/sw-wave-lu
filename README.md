@@ -1,4 +1,4 @@
-# Shallow water (SW) wave under location uncertainty (LU)
+# Shallow water wave under location uncertainty
 
 Simple overview of use/purpose.
 
