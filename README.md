@@ -1,4 +1,4 @@
-# Shallow water wave under location uncertainty
+# Shallow water wave model under location uncertainty
 
 Simple overview of use/purpose.
 
