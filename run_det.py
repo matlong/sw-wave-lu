@@ -1,6 +1,7 @@
 """Run propagation of a monochromatic inertio-gravity wave driven by the deterministic linearized shallow water model.
 Copyright 2023 Long Li.
 """
+
 import numpy as np
 import torch
 from sw import LSW
@@ -25,7 +26,7 @@ wave = LSW(param)
 # Set initial condition
 nk = 1 # number of wavenumbers
 id0_ky, id0_kx = 0, 3 # smallest wavenumbers
-wave.state_vec_hat[-1,:,id0_ky:id0_ky+nk,id0_kx:id0_kx+nk] = 1.
+wave.state_vec_hat[-1,:,id0_ky:id0_ky+nk,id0_kx:id0_kx+nk] = 1./nk0
 wave.init_wave()
 t = 0.
 dt = wave.dt
@@ -35,7 +36,7 @@ n_steps = int(5*365*24*3600/dt)+1 # 5 years
 freq_checknan = int(24*3600/dt) # 1 day
 freq_plot = int(2*24*3600/dt) 
 freq_log = int(24*3600/dt)
-freq_save = int(24*3600/dt)
+freq_save = int(5*24*3600/dt)
 n_steps_save = 0
 
 # Initialize output
