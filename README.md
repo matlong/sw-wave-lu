@@ -2,6 +2,8 @@
 
 Simple overview of use/purpose.
 
+Copyright 2023 Long Li.
+
 ## Description
 
 An in-depth paragraph about your project and overview of use.
