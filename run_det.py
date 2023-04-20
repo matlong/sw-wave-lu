@@ -1,3 +1,6 @@
+"""Run propagation of a monochromatic inertio-gravity wave driven by the deterministic linearized shallow water model.
+Copyright 2023 Long Li.
+"""
 import numpy as np
 import torch
 from sw import LSW
@@ -8,7 +11,7 @@ outdir = './run/det'
 param = {
         'nx': 128, # zonal grid number
         'ny': 128, # meridional grid number
-        'n_ens': 20, # ensemble members
+        'n_ens': 1, # ensemble members
         'Lx': 5120.0e3, # zonal length (m)
         'Ly': 5120.0e3, # meridional length (m)
         'H': 100., # ocean depth (m)
@@ -20,11 +23,9 @@ param = {
 wave = LSW(param)
 
 # Set initial condition
-nk = 4 # number of wavenumbers
+nk = 1 # number of wavenumbers
 id0_ky, id0_kx = 0, 3 # smallest wavenumbers
-perb = 0.1*torch.randn((wave.n_ens,nk,nk), **wave.carr_kwargs)
-perb.imag = 0.
-wave.state_vec_hat[-1,:,id0_ky:id0_ky+nk,id0_kx:id0_kx+nk] = 0.5/nk
+wave.state_vec_hat[-1,:,id0_ky:id0_ky+nk,id0_kx:id0_kx+nk] = 1.
 wave.init_wave()
 t = 0.
 dt = wave.dt
@@ -32,7 +33,7 @@ dt = wave.dt
 # Set run length and output frequency
 n_steps = int(5*365*24*3600/dt)+1 # 5 years
 freq_checknan = int(24*3600/dt) # 1 day
-freq_plot = int(5*24*3600/dt) 
+freq_plot = int(2*24*3600/dt) 
 freq_log = int(24*3600/dt)
 freq_save = int(24*3600/dt)
 n_steps_save = 0
@@ -54,23 +55,22 @@ if freq_save > 0:
 # Initialize plot
 if freq_plot > 0:
     import matplotlib.pyplot as plt
-    from cmocean import cm
     plt.ion()
     x, y = np.meshgrid(np.linspace(1e-3*wave.dx/2, 1e-3*(wave.nx*wave.dx-wave.dx/2), wave.nx, dtype=np.float64), \
                        np.linspace(1e-3*wave.dy/2, 1e-3*(wave.ny*wave.dy-wave.dy/2), wave.ny, dtype=np.float64), \
                        indexing='xy')
-    id_ens = np.random.randint(wave.n_ens)
-    eta = torch.fft.ifft2(wave.state_vec_hat[-1,id_ens], norm=wave.norm_fft).real.cpu().numpy()
+    eta = torch.fft.ifft2(wave.state_vec_hat[-1,0], norm=wave.norm_fft).real.cpu().numpy()
     eta_max = abs(eta).max()
     levels = np.linspace(-eta_max, eta_max, 11)  
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    surf = ax.plot_surface(x, y, eta, cmap=cm.deep, vmin=-eta_max, vmax=eta_max, linewidth=0, antialiased=False)
-    cset = ax.contourf(x, y, eta, zdir='z', offset=-eta_max, cmap=cm.gray, levels=levels, vmin=-eta_max, vmax=eta_max)
+    fig, ax = plt.subplots(1, figsize=(3.5,3), layout=None, subplot_kw={"projection": "3d"})
+    im = ax.plot_surface(x, y, eta, cmap='RdBu_r', vmin=-eta_max, vmax=eta_max, linewidth=0, antialiased=False)
     ax.set_xlabel('$x$ (km)')
     ax.set_ylabel('$y$ (km)')
-    ax.set_zlabel('$\eta$ (m)')
     ax.set_zlim(-eta_max, eta_max)
     ax.set_title(f'Surface elevation (t={t/(365*24*60**2):.3f} yr)')
+    ax.zaxis.set_ticklabels([])
+    cb = fig.colorbar(im, ticks=np.linspace(-eta_max,eta_max,5), format='%2.1f', extend='both', shrink=0.5, aspect=10)
+    cb.set_label('$\eta$ (m)')
     plt.pause(0.1)
 
 # Time-stepping
@@ -84,13 +84,12 @@ for n in range(1, n_steps+1):
 
     if freq_plot > 0 and n % freq_plot == 0:
         plt.cla()
-        eta = torch.fft.ifft2(wave.state_vec_hat[-1,id_ens], norm=wave.norm_fft).real.cpu().numpy()
-        surf = ax.plot_surface(x, y, eta, cmap=cm.deep, vmin=-eta_max, vmax=eta_max, linewidth=0, antialiased=False)
-        cset = ax.contourf(x, y, eta, zdir='z', offset=-eta_max, levels=levels, cmap=cm.gray)
+        eta = torch.fft.ifft2(wave.state_vec_hat[-1,0], norm=wave.norm_fft).real.cpu().numpy()
+        ax.plot_surface(x, y, eta, cmap='RdBu_r', vmin=-eta_max, vmax=eta_max, linewidth=0, antialiased=False)
         ax.set_xlabel('$x$ (km)')
         ax.set_ylabel('$y$ (km)')
-        ax.set_zlabel('$\eta$ (m)')
         ax.set_zlim(-eta_max, eta_max)
+        ax.zaxis.set_ticklabels([])
         ax.set_title(f'Surface elevation (t={t/(365*24*60**2):.3f} yr)')
         plt.pause(0.5)
 
