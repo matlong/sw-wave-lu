@@ -1,4 +1,14 @@
-"""Pytorch, shallow water wave model, Long Li, 2023."""
+"""Pytorch implementation of (rotating) shallow water model.
+Configuration: two dimensional, single layer, periodic domain, f-plane, without external forcing and dumping.
+Methods:
+    - Spectral (FFT) method for spatial discretization. 
+    - Strang splitting time stepping for the deterministic system: 
+      expotential integrator for the linear system and RK4 for the nonlinear part.
+    - Milstein scheme for the Ito integral.  
+    - 2/3 rule is used for dealiasing
+Copyright 2023 Long Li.
+"""
+
 import numpy as np
 import torch
 
@@ -31,11 +41,9 @@ class LSW:
         self.ksq = self.kx**2 + self.ky**2
         self.iksq = 1./self.ksq
         self.iksq[0,0] = 0.
-        maskx = torch.tensor(abs(self.kx) < (2/3)*abs(self.kx).max(), **self.farr_kwargs) # '2/3' rule
-        masky = torch.tensor(abs(self.ky) < (2/3)*abs(self.ky).max(), **self.farr_kwargs)
+        maskx = (abs(self.kx) < (2/3)*abs(self.kx).max()) # '2/3' rule
+        masky = (abs(self.ky) < (2/3)*abs(self.ky).max()) 
         self.mask_dealias = maskx * masky
-        self.mask_dealias[self.ny//2,:] = 0. # remove highest freq.
-        self.mask_dealias[:,self.nx//2] = 0. 
 
         # Model and state vector (in Fourier)
         A = torch.zeros((self.ny,self.nx,3,3), **self.carr_kwargs) # linear operator
