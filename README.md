@@ -77,14 +77,6 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
     * Initial Release
 -->
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-## Acknowledgments
-
-The authors acknowledge the support of the ERC EU project 856408-STUOD.
-
 ## Citation
 
 ```
@@ -99,6 +91,14 @@ The authors acknowledge the support of the ERC EU project 856408-STUOD.
       url = {https://arxiv.org/abs/2304.10183}
 }
 ```
+
+## Acknowledgments
+
+The authors acknowledge the support of the ERC EU project 856408-STUOD.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 <!---
 Inspiration, code snippets, etc.
