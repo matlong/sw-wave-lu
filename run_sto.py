@@ -36,11 +36,15 @@ t = 0.
 dt = wave.dt
 
 # Set noise correlation kernel
-nkr = 1 # number of wavenumbers
-idr_ky, idr_kx = 6, 4 # smallest wavenumbers
-alpha = np.sqrt(dt/param['cfl']) * wave.g / wave.f0 / nkr
-wave.sigma_vec_hat[0,0,idr_ky:idr_ky+nkr,idr_kx:idr_kx+nkr] = -1j * alpha * wave.ky[idr_ky:idr_ky+nkr,idr_kx:idr_kx+nkr]
-wave.sigma_vec_hat[1,0,idr_ky:idr_ky+nkr,idr_kx:idr_kx+nkr] =  1j * alpha * wave.kx[idr_ky:idr_ky+nkr,idr_kx:idr_kx+nkr]
+nkr = 10 # number of wavenumbers
+idr_ky, idr_kx = 5, 5 # smallest wavenumbers
+alpha = np.sqrt(dt/param['cfl']) * wave.g / wave.f0
+if nkr > 1:
+    kr = torch.sqrt(wave.ksq[idr_ky:idr_ky+nkr,idr_kx:idr_kx+nkr]).diag() # isotropic
+    alpha *= (kr / kr[0])**(-4)
+for i in range(nkr):    
+    wave.sigma_vec_hat[0,0,idr_ky+i,idr_kx+i] = -1j * alpha[i] * wave.ky[idr_ky+i,idr_kx+i]
+    wave.sigma_vec_hat[1,0,idr_ky+i,idr_kx+i] =  1j * alpha[i] * wave.kx[idr_ky+i,idr_kx+i]
 
 # Set run length and output frequency
 n_steps = int(5*365*24*3600/dt)+1 # 5 years
