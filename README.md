@@ -37,11 +37,15 @@ command to run if program contains helper info
 
 ## Authors
 
-Contributors names and contact info
+Etienne Mémin, Long Li, Noé Lahaye, Gilles Tissot and Bertrand Chapron.
+Contact: long.li@inria.fr
 
+<!---
 ex. Dominique Pizzie  
 ex. [@DomPizzie](https://twitter.com/dompizzie)
+-->
 
+<!---
 ## Version History
 
 * 0.2
@@ -49,6 +53,7 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
     * See [commit change]() or See [release history]()
 * 0.1
     * Initial Release
+-->
 
 ## License
 
@@ -67,7 +72,9 @@ The authors acknowledge the support of the ERC EU project 856408-STUOD.
       year={2023},
       eprint={2304.10183},
       archivePrefix={arXiv},
-      primaryClass={physics.flu-dyn}
+      primaryClass={physics.flu-dyn},
+      doi = {10.48550/ARXIV.2304.10183},
+      url = {https://arxiv.org/abs/2304.10183}
 }
 ```
 
