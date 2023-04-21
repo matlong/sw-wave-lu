@@ -37,8 +37,9 @@ command to run if program contains helper info
 
 ## Authors
 
-Etienne Mémin, Long Li, Noé Lahaye, Gilles Tissot and Bertrand Chapron.
-Contact: long.li@inria.fr
+Long Li
+
+long.li@inria.fr
 
 <!---
 ex. Dominique Pizzie  
@@ -57,7 +58,7 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 ## Acknowledgments
 
