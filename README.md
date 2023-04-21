@@ -1,39 +1,60 @@
 # Shallow water wave model under location uncertainty
 
-Simple overview of use/purpose.
+This code can be used to reproduce the numerical results in the paper 
+[@Mémin-et-al. (2023)](https://arxiv.org/abs/2304.10183).
 
 Copyright 2023 Long Li.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+In this project, we investigate the wave solutions of a stochastic rotating shallow water model. 
+This approximate model provides an interesting simple description of the interplay between waves and 
+random forcing ensuing either from the wind or coming as the feedback of the ocean on the atmosphere 
+and leading in a very fast way to the selection of some wave-length. This interwoven, yet simple, 
+mechanism explains the emergence of typical wavelength associated to near inertial waves. 
+Ensemble-mean waves that are not in phase with the random forcing are damped at an exponential rate, 
+whose magnitude depends on the random forcing variance. This codes allows to illustrate the plane wave
+solutions associated to the linearized system under some specific noises.
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* Pytorch, Numpy, Matplotlib
+* Prerequisites: Pytorch, Numpy, Matplotlib.
+
+* Tested with Intel CPUs, NVIDIA RTX 2080Ti GPU and Tesla P100 GPU.
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+```
+git clone https://github.com/louity/qgm_pytorch.git
+```
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* To run the deterministic wave model:
 ```
-code blocks for commands
+python3 run_det.py
 ```
 
+* To run the stochastic wave model:
+```
+python3 run_sto.py
+```
+
+* To compare the damping effect due to different noises:
+```
+python3 compare_damping.py
+```
+
+<!---
 ## Help
 
 Any advise for common problems or issues.
 ```
 command to run if program contains helper info
 ```
+-->
 
 ## Authors
 
