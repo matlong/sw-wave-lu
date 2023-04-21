@@ -1,7 +1,7 @@
 # Shallow water wave model under location uncertainty
-
+PyTorch implementation of stochastic shallow water wave model on 2D periodic domain.
 This code can be used to reproduce the numerical results in the paper 
-[@Mémin-et-al. (2023)](https://arxiv.org/abs/2304.10183).
+[@Mémin et al. (2023)](https://arxiv.org/abs/2304.10183).
 
 Copyright 2023 Long Li.
 
@@ -27,7 +27,7 @@ solutions associated to the linearized system under some specific noises.
 ### Installing
 
 ```
-git clone https://github.com/louity/qgm_pytorch.git
+git clone https://github.com/matlong/sw-wave-lu.git
 ```
 
 ### Executing program
@@ -58,9 +58,9 @@ command to run if program contains helper info
 
 ## Authors
 
-Long Li
+Etienne Mémin, Long Li, Noé Lahaye, Gilles Tissot and Bertrand Chapron.
 
-long.li@inria.fr
+Contact: long.li@inria.fr
 
 <!---
 ex. Dominique Pizzie  
