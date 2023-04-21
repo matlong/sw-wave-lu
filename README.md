@@ -55,6 +55,22 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Acknowledgments
+
+The authors acknowledge the support of the ERC EU project 856408-STUOD.
+
+## Citation
+
+```
+@misc{mémin2023linear,
+      title={Linear waves solutions of a stochastic shallow water model},
+      author={Etienne Mémin and Long Li and Noé Lahaye and Gilles Tissot and Bertrand Chapron},
+      year={2023},
+      eprint={2304.10183},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn}
+}
+```
+
 <!---
 Inspiration, code snippets, etc.
 * [awesome-readme](https://github.com/matiassingers/awesome-readme)
@@ -63,4 +79,3 @@ Inspiration, code snippets, etc.
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
 -->
-
