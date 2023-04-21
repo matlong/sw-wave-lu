@@ -36,7 +36,6 @@ git clone https://github.com/matlong/sw-wave-lu.git
 ```
 python3 run_det.py
 ```
-The configuration is set by the dictonary 'param' and the initial condition is set by the number of wavenumbers 'nk' and the smallest waveneumbers 'id0\_k'.
 
 * To run the stochastic wave model:
 ```
